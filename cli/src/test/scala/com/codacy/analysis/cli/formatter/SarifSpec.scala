@@ -36,7 +36,8 @@ class SarifSpec extends Specification with NoLanguageFeatures {
       Issue.Message("My Security Issue Message"),
       securityPatternLevel,
       Option(securityPatternCategory),
-      LineLocation(1))
+      LineLocation(1),
+      Some("someSourceId"))
 
     val duplicationPatternId = Pattern.Id("duplication-pattern-id")
     val duplicationPatternLevel = Result.Level.Err
@@ -54,7 +55,8 @@ class SarifSpec extends Specification with NoLanguageFeatures {
       Issue.Message("My Duplication Issue Message"),
       duplicationPatternLevel,
       Option(duplicationPatternCategory),
-      LineLocation(2))
+      LineLocation(2),
+      None)
 
     val toolSpecification = Tool.Specification(
       Tool.Name("Custom Tool"),
