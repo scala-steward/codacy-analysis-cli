@@ -20,7 +20,8 @@ final case class Issue(patternId: results.Pattern.Id,
                        message: Issue.Message,
                        level: results.Result.Level,
                        category: Option[results.Pattern.Category],
-                       location: Location)
+                       location: Location,
+                       sourceId: Option[String])
     extends ToolResult
 
 object Issue {

@@ -37,21 +37,24 @@ class ExitStatusSpec extends Specification with NoLanguageFeatures with Mockito 
             Issue.Message("Mutable variable"),
             Result.Level.Err,
             Option(Pattern.Category.ErrorProne),
-            FullLocation(1, 20)),
+            FullLocation(1, 20),
+            None),
           Issue(
             Pattern.Id("NoMutableVariables"),
             Paths.get("Test.scala"),
             Issue.Message("Mutable variable"),
             Result.Level.Err,
             Option(Pattern.Category.ErrorProne),
-            FullLocation(2, 20)),
+            FullLocation(2, 20),
+            None),
           Issue(
             Pattern.Id("NoMutableVariables"),
             Paths.get("Test.scala"),
             Issue.Message("Mutable variable"),
             Result.Level.Err,
             Option(Pattern.Category.ErrorProne),
-            FullLocation(3, 20)))))))) should beEqualTo(ExitStatus.ExitCodes.success)
+            FullLocation(3, 20),
+            None))))))) should beEqualTo(ExitStatus.ExitCodes.success)
     }
 
     "send exceed max issues number code when issues do not exceed max issues number" in {
@@ -69,21 +72,24 @@ class ExitStatusSpec extends Specification with NoLanguageFeatures with Mockito 
             Issue.Message("Mutable variable"),
             Result.Level.Err,
             Option(Pattern.Category.ErrorProne),
-            FullLocation(1, 20)),
+            FullLocation(1, 20),
+            None),
           Issue(
             Pattern.Id("NoMutableVariables"),
             Paths.get("Test.scala"),
             Issue.Message("Mutable variable"),
             Result.Level.Err,
             Option(Pattern.Category.ErrorProne),
-            FullLocation(2, 20)),
+            FullLocation(2, 20),
+            None),
           Issue(
             Pattern.Id("NoMutableVariables"),
             Paths.get("Test.scala"),
             Issue.Message("Mutable variable"),
             Result.Level.Err,
             Option(Pattern.Category.ErrorProne),
-            FullLocation(3, 20)))))))) should beEqualTo(ExitStatus.ExitCodes.maxAllowedIssuesExceeded)
+            FullLocation(3, 20),
+            None))))))) should beEqualTo(ExitStatus.ExitCodes.maxAllowedIssuesExceeded)
     }
 
     "send success code when no issues" in {

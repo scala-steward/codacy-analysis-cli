@@ -101,7 +101,8 @@ class Tool(fullToolSpec: FullToolSpec,
             Issue.Message(r.message),
             r.level,
             r.category,
-            LineLocation(r.line)))(collection.breakOut): Set[ToolResult]) ++
+            LineLocation(r.line),
+            r.sourceId))(collection.breakOut): Set[ToolResult]) ++
           res.fileErrors.map(
             fe =>
               FileError(

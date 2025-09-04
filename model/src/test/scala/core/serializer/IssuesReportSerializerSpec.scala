@@ -28,10 +28,33 @@ class IssuesReportSerializerSpec extends Specification with NoLanguageFeatures {
               Issue.Message(patternMessage),
               com.codacy.plugins.api.results.Result.Level.Info,
               None,
-              FullLocation(lineNumber, lineNumber)))))))))
+              FullLocation(lineNumber, lineNumber),
+              None))))))))
 
       val expectedJSON =
         s"""[{"tool":"$toolName","issues":{"Success":{"results":[{"filename":"${filePath.toString}","results":[{"Issue":{"patternId":{"value":"$patternId"},"filename":"${filePath.toString}","message":{"text":"$patternMessage"},"level":"Info","location":{"FullLocation":{"line":$lineNumber,"column":$lineNumber}}}}]}]}}}]"""
+
+      expectedJSON mustEqual issuesReporterAsJson
+    }
+
+    "be converted to json when sourceId is defined" in {
+      val sourceId = "exampleSourceId"
+      val issuesReporterAsJson = IssuesReportSerializer.toJsonString(
+        Set(ToolResults(
+          toolName,
+          IssuesAnalysis.Success(Set(IssuesAnalysis.FileResults(
+            filePath,
+            Set(Issue(
+              Pattern.Id(patternId),
+              filePath,
+              Issue.Message(patternMessage),
+              com.codacy.plugins.api.results.Result.Level.Info,
+              None,
+              FullLocation(lineNumber, lineNumber),
+              Some(sourceId)))))))))
+
+      val expectedJSON =
+        s"""[{"tool":"$toolName","issues":{"Success":{"results":[{"filename":"${filePath.toString}","results":[{"Issue":{"patternId":{"value":"$patternId"},"filename":"${filePath.toString}","message":{"text":"$patternMessage"},"level":"Info","location":{"FullLocation":{"line":$lineNumber,"column":$lineNumber}},"sourceId":"exampleSourceId"}}]}]}}}]"""
 
       expectedJSON mustEqual issuesReporterAsJson
     }
@@ -48,7 +71,8 @@ class IssuesReportSerializerSpec extends Specification with NoLanguageFeatures {
               Issue.Message(patternMessage),
               com.codacy.plugins.api.results.Result.Level.Info,
               Some(com.codacy.plugins.api.results.Pattern.Category.UnusedCode),
-              FullLocation(lineNumber, lineNumber)))))))))
+              FullLocation(lineNumber, lineNumber),
+              None))))))))
 
       val expectedJSON =
         s"""[{"tool":"$toolName","issues":{"Success":{"results":[{"filename":"${filePath.toString}","results":[{"Issue":{"patternId":{"value":"$patternId"},"filename":"${filePath.toString}","message":{"text":"$patternMessage"},"level":"Info","category":"UnusedCode","location":{"FullLocation":{"line":$lineNumber,"column":$lineNumber}}}}]}]}}}]"""
